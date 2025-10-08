@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Quizzes Médicos</title>
+    <style>
+        /* Estilos básicos para una mejor apariencia */
+        body { font-family: sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .container { width: 100%; max-width: 800px; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1, h2 { text-align: center; color: #333; }
+        .setup-screen .form-group { margin-bottom: 20px; }
+        .setup-screen label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .setup-screen input[type="number"], .setup-screen button { width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #ccc; font-size: 16px; }
+        .setup-screen button { background-color: #007BFF; color: white; cursor: pointer; border: none; }
+        #category-checkboxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .quiz-screen { display: none; } /* Oculto por defecto */
+        .btn { display: block; width: 100%; padding: 15px; margin: 10px 0; background: #f0f0f0; border: 1px solid #ddd; text-align: left; cursor: pointer; border-radius: 5px; font-size: 16px; }
+        .btn.correct { background-color: #d4edda; border-color: #c3e6cb; }
+        .btn.incorrect { background-color: #f8d7da; border-color: #f5c6cb; }
+        .results-screen { display: none; text-align: center; }
+        .results-screen h2 { color: #007BFF; }
+        #category-results { text-align: left; margin-top: 20px; }
+        .category-score { display: flex; justify-content: space-between; padding: 10px; background-color: #f8f9fa; border-radius: 5px; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="setup-screen" id="setup-screen">
+            <h1>Generador de Quizzes Médicos</h1>
+            <div class="form-group">
+                <label>1. Elige las categorías:</label>
+                <div id="category-checkboxes">
+                    </div>
+            </div>
+            <div class="form-group">
+                <label for="num-questions">2. ¿Cuántas preguntas quieres?</label>
+                <input type="number" id="num-questions" value="10" min="1">
+            </div>
+            <button id="start-quiz-btn">Iniciar Quiz</button>
+        </div>
+
+        <div class="quiz-screen" id="quiz-screen">
+            <h2 id="question-text"></h2>
+            <div id="answer-buttons"></div>
+            <p id="progress-text" style="text-align: right; margin-top: 20px;"></p>
+        </div>
+
+        <div class="results-screen" id="results-screen">
+            <h2>¡Quiz Finalizado!</h2>
+            <p id="final-score"></p>
+            <div id="category-results"></div>
+            <button id="restart-btn" style="padding: 12px 25px; margin-top: 20px;">Crear otro quiz</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
