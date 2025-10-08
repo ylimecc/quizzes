@@ -13,7 +13,7 @@
   },
   {
     "id": 2,
-    "pregunta": "Paciente de 65 años con dolor torácico opresivo irradiado a brazo izquierdo de 2 horas de evolución. El electrocardiograma muestra elevación del segmento ST en derivaciones V2-V4. ¿Cuál es el diagnóstico más probable?",
+    "pregunta": "Paciente de 65 años con dolor torácico opresivo irradiado a brazo izquierdo. El ECG muestra elevación del segmento ST en V2-V4. ¿Cuál es el diagnóstico más probable?",
     "opciones": [
       { "texto": "Pericarditis aguda", "esCorrecta": false },
       { "texto": "Tromboembolia pulmonar", "esCorrecta": false },
@@ -33,6 +33,18 @@
         { "texto": "Ceguera nocturna", "esCorrecta": false }
     ],
     "categorias": ["Pediatría", "Salud Pública"],
+    "puntos": 10
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Cuál es el tratamiento de primera línea para un paciente pediátrico con faringoamigdalitis estreptocócica?",
+    "opciones": [
+        { "texto": "Azitromicina", "esCorrecta": false },
+        { "texto": "Ceftriaxona", "esCorrecta": false },
+        { "texto": "Amoxicilina", "esCorrecta": true },
+        { "texto": "Clindamicina", "esCorrecta": false }
+    ],
+    "categorias": ["Pediatría"],
     "puntos": 10
   }
 ]
