@@ -26,7 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Cargar las preguntas desde el archivo JSON
     fetch('preguntas.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             todasLasPreguntas = data;
             mostrarCategorias();
@@ -35,10 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Mostrar las categorías disponibles en la pantalla de inicio
     function mostrarCategorias() {
-        // Obtenemos una lista de categorías únicas de todas las preguntas
         const categorias = [...new Set(todasLasPreguntas.flatMap(p => p.categorias))];
         
-        categoryCheckboxesContainer.innerHTML = ''; // Limpiamos el contenedor
+        categoryCheckboxesContainer.innerHTML = '';
         categorias.forEach(categoria => {
             const div = document.createElement('div');
             div.innerHTML = `
@@ -59,12 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Filtrar preguntas por categoría
         let preguntasFiltradas = todasLasPreguntas.filter(p => 
             p.categorias.some(cat => categoriasSeleccionadas.includes(cat))
         );
 
-        // Mezclar y seleccionar el número deseado de preguntas
         quizActual = preguntasFiltradas.sort(() => 0.5 - Math.random()).slice(0, numPreguntas);
 
         if (quizActual.length === 0) {
@@ -72,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Empezar el quiz
         empezarQuiz();
     });
 
@@ -113,12 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const esCorrecta = botonSeleccionado.dataset.correcta === 'true';
         const preguntaActual = quizActual[preguntaActualIndex];
         
-        // Actualizar puntajes
         if (esCorrecta) {
             puntaje += preguntaActual.puntos;
         }
         
-        // Actualizar puntajes por categoría
         preguntaActual.categorias.forEach(cat => {
             if (!puntajesPorCategoria[cat]) {
                 puntajesPorCategoria[cat] = { correctas: 0, total: 0, puntos: 0, maxPuntos: 0 };
@@ -131,9 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Dar feedback visual
         Array.from(answerButtonsContainer.children).forEach(button => {
-            button.disabled = true; // Deshabilitar todos los botones
+            button.disabled = true;
             if (button.dataset.correcta === 'true') {
                 button.classList.add('correct');
             } else {
@@ -141,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Pasar a la siguiente pregunta después de un segundo
         setTimeout(() => {
             preguntaActualIndex++;
             if (preguntaActualIndex < quizActual.length) {
